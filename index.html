@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETS Infoplus - Plataforma Educativa sobre Salud Sexual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f0f9ff 100%);
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            background: linear-gradient(135deg, #dbeafe 0%, #cffafe 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            font-size: 4rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        /* Grid Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin: 15px 0;
+            color: #1f2937;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+        }
+
+        /* Section Titles */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            text-align: center;
+            color: #1f2937;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 12px;
+            margin: 60px 0;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .cta button {
+            background: white;
+            color: #2563eb;
+            margin: 0 10px;
+        }
+
+        .cta button:hover {
+            background: #f0f9ff;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        footer h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin-bottom: 8px;
+        }
+
+        footer button {
+            background: none;
+            border: none;
+            color: #d1d5db;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        footer button:hover {
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Quiz */
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: #2563eb;
+            background: #f0f9ff;
+        }
+
+        .quiz-option input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        /* Symptoms */
+        .symptom-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .symptom-check:hover {
+            background: #f0f9ff;
+        }
+
+        .symptom-check input[type="checkbox"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Risk Level */
+        .risk-low {
+            border-left: 4px solid #10b981;
+            background: #f0fdf4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .risk-moderate {
+            border-left: 4px solid #f59e0b;
+            background: #fffbeb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .risk-high {
+            border-left: 4px solid #ef4444;
+            background: #fef2f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Medical Centers */
+        .center-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .center-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .center-distance {
+            display: inline-block;
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .service-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 5px 5px 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, #dbeafe 0%, #cffafe 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #bae6fd;
+        }
+
+        .team-member-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .team-member h4 {
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo" onclick="showPage('home')">
+                    <div class="logo-icon">ETS</div>
+                    <span>Infoplus</span>
+                </div>
+                <ul>
+                    <li><button onclick="showPage('home')" class="nav-btn active" data-page="home">Inicio</button></li>
+                    <li><button onclick="showPage('education')" class="nav-btn" data-page="education">Educación</button></li>
+                    <li><button onclick="showPage('assessment')" class="nav-btn" data-page="assessment">Autoevaluación</button></li>
+                    <li><button onclick="showPage('centers')" class="nav-btn" data-page="centers">Centros Médicos</button></li>
+                    <li><button onclick="showPage('quiz')" class="nav-btn" data-page="quiz">Quiz</button></li>
+                    <li><button onclick="showPage('about')" class="nav-btn" data-page="about">Acerca de</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div>
+                        <h2>Tu Plataforma de Salud Sexual</h2>
+                        <p>Plataforma web integral sobre ETS que combina contenido educativo gamificado con herramientas de autoevaluación de síntomas y geolocalización de centros médicos especializados</p>
+                        <div class="buttons">
+                            <button class="btn-primary" onclick="showPage('education')">Comenzar a Aprender</button>
+                            <button class="btn-secondary" onclick="showPage('assessment')">Autoevaluación</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">🏥</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>Nuestras Características</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3>Contenido Educativo</h3>
+                    <p>Aprende sobre diferentes tipos de ETS, síntomas, transmisión y tratamientos con información verificada.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎮</div>
+                    <h3>Gamificación</h3>
+                    <p>Participa en quizzes interactivos y gana puntos mientras aprendes sobre prevención de ETS.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🩺</div>
+                    <h3>Autoevaluación</h3>
+                    <p>Herramienta de autoevaluación de síntomas para identificar posibles riesgos de salud.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📍</div>
+                    <h3>Geolocalización</h3>
+                    <p>Encuentra centros médicos especializados cercanos a tu ubicación.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Prevención</h3>
+                    <p>Accede a consejos prácticos y estrategias efectivas para prevenir ETS.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Información Confiable</h3>
+                    <p>Combate la desinformación con contenido basado en evidencia científica.</p>
+                </div>
+            </div>
+
+            <h2>Consejos de Prevención</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Usa protección</h3>
+                    <p>Utiliza condones correctamente en todas las relaciones sexuales</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Comunícate</h3>
+                    <p>Habla abiertamente con tu pareja sobre salud sexual</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏥</div>
+                    <h3>Hazte pruebas</h3>
+                    <p>Realiza pruebas regulares si eres sexualmente activo</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💉</div>
+                    <h3>Vacúnate</h3>
+                    <p>Vacúnate contra VPH y otras ETS prevenibles</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧼</div>
+                    <h3>Higiene</h3>
+                    <p>Mantén una buena higiene personal y genital</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚫</div>
+                    <h3>Evita riesgos</h3>
+                    <p>Evita compartir agujas y objetos personales</p>
+                </div>
+            </div>
+
+            <div class="cta">
+                <h2>¿Listo para aprender más?</h2>
+                <p>Explora nuestras herramientas educativas y de autoevaluación</p>
+                <div class="buttons" style="justify-content: center;">
+                    <button class="btn-primary" onclick="showPage('education')" style="background: white; color: #2563eb;">Ir a Educación</button>
+                    <button class="btn-primary" onclick="showPage('quiz')" style="background: white; color: #2563eb;">Jugar Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDUCATION PAGE -->
+    <div id="education" class="page">
+        <div class="container" style="padding: 40px 0;">
+            <h1>Centro Educativo</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px;">Aprende sobre diferentes tipos de enfermedades de transmisión sexual, sus síntomas, transmisión y tratamientos.</p>
+
+            <h2>Tipos de ETS</h2>
+            <div class="grid">
+                <div class="card" onclick="showEtsModal('gonorrea')">
+                    <h3>Gonorrea</h3>
+                    <p>Infección bacteriana causada por Neisseria gonorrhoeae</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+                <div class="card" onclick="showEtsModal('clamidia')">
+                    <h3>Clamidia</h3>
+                    <p>Infección bacteriana causada por Chlamydia trachomatis</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+                <div class="card" onclick="showEtsModal('sifilis')">
+                    <h3>Sífilis</h3>
+                    <p>Infección bacteriana causada por Treponema pallidum</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+                <div class="card" onclick="showEtsModal('herpes')">
+                    <h3>Herpes Genital</h3>
+                    <p>Infección viral causada por Virus del Herpes Simple (VHS)</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+                <div class="card" onclick="showEtsModal('vph')">
+                    <h3>Virus del Papiloma Humano (VPH)</h3>
+                    <p>Infección viral que puede causar verrugas y cáncer</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+                <div class="card" onclick="showEtsModal('vih')">
+                    <h3>VIH/SIDA</h3>
+                    <p>Virus de Inmunodeficiencia Humana</p>
+                    <button class="btn-secondary" style="width: 100%; margin-top: 15px;">Ver Detalles</button>
+                </div>
+            </div>
+
+            <div class="grid" style="margin-top: 40px;">
+                <div class="card">
+                    <h3>¿Qué son las ETS?</h3>
+                    <p>Las Enfermedades de Transmisión Sexual (ETS) son infecciones que se transmiten principalmente a través del contacto sexual. Pueden ser causadas por bacterias, virus o parásitos, y algunos tipos pueden no presentar síntomas. La detección temprana y el tratamiento adecuado son fundamentales para prevenir complicaciones.</p>
+                </div>
+                <div class="card">
+                    <h3>Importancia de la Prevención</h3>
+                    <p>La prevención es la mejor estrategia contra las ETS. El uso consistente de métodos de barrera, pruebas regulares y comunicación abierta con parejas son clave. Muchas ETS son curables o controlables con tratamiento adecuado si se detectan a tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASSESSMENT PAGE -->
+    <div id="assessment" class="page">
+        <div class="container" style="padding: 40px 0;">
+            <h1>Autoevaluación de Síntomas</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px;">Esta herramienta es educativa y no reemplaza la consulta médica profesional.</p>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div>
+                    <div class="card">
+                        <h3>Selecciona tus síntomas</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Marca los síntomas que has experimentado</p>
+
+                        <h4 style="margin: 20px 0 15px 0; font-weight: 600;">Síntomas Generales</h4>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="flujo" onchange="updateAssessment()">
+                            <label for="flujo" style="cursor: pointer; flex: 1;">Flujo genital anormal</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="dolor_orinar" onchange="updateAssessment()">
+                            <label for="dolor_orinar" style="cursor: pointer; flex: 1;">Dolor al orinar</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="dolor_pelvico" onchange="updateAssessment()">
+                            <label for="dolor_pelvico" style="cursor: pointer; flex: 1;">Dolor pélvico</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="ampollas" onchange="updateAssessment()">
+                            <label for="ampollas" style="cursor: pointer; flex: 1;">Ampollas o úlceras genitales</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="picazon" onchange="updateAssessment()">
+                            <label for="picazon" style="cursor: pointer; flex: 1;">Picazón genital</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="verrugas" onchange="updateAssessment()">
+                            <label for="verrugas" style="cursor: pointer; flex: 1;">Verrugas genitales</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="ganglios" onchange="updateAssessment()">
+                            <label for="ganglios" style="cursor: pointer; flex: 1;">Ganglios inflamados</label>
+                        </div>
+
+                        <h4 style="margin: 20px 0 15px 0; font-weight: 600;">Síntomas Sistémicos</h4>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="fiebre" onchange="updateAssessment()">
+                            <label for="fiebre" style="cursor: pointer; flex: 1;">Fiebre</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="fatiga" onchange="updateAssessment()">
+                            <label for="fatiga" style="cursor: pointer; flex: 1;">Fatiga o cansancio</label>
+                        </div>
+                        <div class="symptom-check">
+                            <input type="checkbox" id="erupcion" onchange="updateAssessment()">
+                            <label for="erupcion" style="cursor: pointer; flex: 1;">Erupción cutánea</label>
+                        </div>
+
+                        <button class="btn-primary" onclick="evaluateSymptoms()" style="width: 100%; margin-top: 20px;">Evaluar Síntomas</button>
+                    </div>
+                </div>
+
+                <div id="assessment-results" style="display: none;">
+                    <div class="card">
+                        <h3>Evaluación</h3>
+                        <div id="risk-display"></div>
+                        <div style="background: white; border-radius: 8px; padding: 15px; margin: 15px 0; text-align: center;">
+                            <p style="color: #666; font-size: 0.9rem; margin-bottom: 5px;">Síntomas reportados:</p>
+                            <p style="font-size: 2rem; font-weight: bold; color: #2563eb;" id="symptom-count">0</p>
+                        </div>
+                        <button class="btn-primary" onclick="showPage('centers')" style="width: 100%; margin-bottom: 10px;">Encontrar Centro Médico</button>
+                        <button class="btn-secondary" onclick="resetAssessment()" style="width: 100%;">Nueva Evaluación</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid" style="margin-top: 40px;">
+                <div class="card">
+                    <h3>¿Cuándo buscar ayuda?</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">• Si experimentas síntomas persistentes</li>
+                        <li style="margin-bottom: 10px;">• Después de relaciones sexuales sin protección</li>
+                        <li style="margin-bottom: 10px;">• Si tu pareja fue diagnosticada con ETS</li>
+                        <li style="margin-bottom: 10px;">• Para pruebas regulares si eres sexualmente activo</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Pruebas Disponibles</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">• Análisis de sangre</li>
+                        <li style="margin-bottom: 10px;">• Cultivos de fluidos corporales</li>
+                        <li style="margin-bottom: 10px;">• Pruebas de PCR (ADN)</li>
+                        <li style="margin-bottom: 10px;">• Examen visual</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENTERS PAGE -->
+    <div id="centers" class="page">
+        <div class="container" style="padding: 40px 0;">
+            <h1>Centros Médicos Especializados</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px;">Encuentra centros de salud cercanos que ofrecen servicios de pruebas, tratamiento y asesoramiento sobre ETS.</p>
+
+            <button class="btn-primary" onclick="getLocation()" style="margin-bottom: 20px;">📍 Usar Mi Ubicación</button>
+            <div id="location-info" style="display: none; color: #666; margin-bottom: 20px;"></div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div id="centers-list"></div>
+                <div id="center-detail" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="quiz" class="page">
+        <div class="container" style="padding: 40px 0;">
+            <h1>Quiz de ETS</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 30px;">Pon a prueba tus conocimientos sobre prevención y salud sexual</p>
+
+            <div id="quiz-container" style="max-width: 700px; margin: 0 auto;"></div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div class="container" style="padding: 40px 0;">
+            <h1>Acerca de ETS Infoplus</h1>
+
+            <div class="card" style="margin-bottom: 30px;">
+                <h3>Nuestra Misión</h3>
+                <p>ETS Infoplus es una plataforma web integral dedicada a promover la salud sexual y la prevención de enfermedades de transmisión sexual.</p>
+                <p style="margin-top: 15px;">Plataforma web integral sobre ETS que combina contenido educativo gamificado con herramientas de autoevaluación de síntomas y geolocalización de centros médicos especializados, para promover la prevención, reducir la desinformación y facilitar el acceso a atención médica confiable.</p>
+            </div>
+
+            <h2>Nuestro Equipo</h2>
+            <div class="grid">
+                <div class="team-member">
+                    <div class="team-member-icon">👤</div>
+                    <h4>Juan Jose Restrepo Alvarez</h4>
+                    <p>Miembro del equipo de desarrollo</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-icon">👤</div>
+                    <h4>Joseph Alexander Morales Cardona</h4>
+                    <p>Miembro del equipo de desarrollo</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-icon">👤</div>
+                    <h4>Emanuel Granados Pulgarin</h4>
+                    <p>Miembro del equipo de desarrollo</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-icon">👤</div>
+                    <h4>Samuel Torres Atehortua</h4>
+                    <p>Miembro del equipo de desarrollo</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-icon">👤</div>
+                    <h4>Jacobo Morales Londoño</h4>
+                    <p>Miembro del equipo de desarrollo</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 50px;">Nuestros Valores</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Confidencialidad</h3>
+                    <p>Respetamos la privacidad de nuestros usuarios. Toda la información es tratada con confidencialidad.</p>
+                </div>
+                <div class="card">
+                    <h3>Precisión</h3>
+                    <p>Proporcionamos información verificada y basada en evidencia científica actual.</p>
+                </div>
+                <div class="card">
+                    <h3>Accesibilidad</h3>
+                    <p>Nuestro contenido es accesible para todos, independientemente de su nivel de conocimiento.</p>
+                </div>
+                <div class="card">
+                    <h3>Inclusión</h3>
+                    <p>Celebramos la diversidad y proporcionamos información inclusiva para todos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ETS Modal -->
+    <div id="ets-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeEtsModal()">✕</button>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description" style="color: #666; margin: 15px 0;"></p>
+
+            <h4 style="margin-top: 20px; margin-bottom: 10px; font-weight: 600;">Síntomas</h4>
+            <ul id="modal-symptoms" style="list-style: none; margin-bottom: 20px;"></ul>
+
+            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="color: #666; margin-bottom: 5px;"><strong>Transmisión:</strong></p>
+                <p id="modal-transmission" style="color: #1f2937;"></p>
+            </div>
+
+            <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="color: #666; margin-bottom: 5px;"><strong>Tratamiento:</strong></p>
+                <p id="modal-treatment" style="color: #1f2937;"></p>
+            </div>
+
+            <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px;">
+                <p style="color: #92400e; font-size: 0.9rem;"><strong>Nota importante:</strong> Esta información es educativa. Consulta con un profesional de salud para diagnóstico y tratamiento.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>ETS Infoplus</h4>
+                    <p>Plataforma educativa integral sobre salud sexual y prevención de ETS.</p>
+                </div>
+                <div>
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><button onclick="showPage('education')">Educación</button></li>
+                        <li><button onclick="showPage('assessment')">Autoevaluación</button></li>
+                        <li><button onclick="showPage('centers')">Centros Médicos</button></li>
+                        <li><button onclick="showPage('quiz')">Quiz</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><button onclick="showPage('about')">Acerca de</button></li>
+                        <li><a href="#" style="color: #d1d5db; text-decoration: none;">Privacidad</a></li>
+                        <li><a href="#" style="color: #d1d5db; text-decoration: none;">Términos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ETS Infoplus. Todos los derechos reservados.</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Plataforma educativa para la prevención y conciencia sobre ETS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ETS Data
+        const etsData = {
+            gonorrea: {
+                name: 'Gonorrea',
+                description: 'Infección bacteriana causada por Neisseria gonorrhoeae',
+                symptoms: ['Flujo genital anormal', 'Dolor al orinar', 'Dolor pélvico'],
+                transmission: 'Contacto sexual directo',
+                treatment: 'Antibióticos'
+            },
+            clamidia: {
+                name: 'Clamidia',
+                description: 'Infección bacteriana causada por Chlamydia trachomatis',
+                symptoms: ['Flujo vaginal o uretral', 'Dolor al orinar', 'Dolor durante relaciones'],
+                transmission: 'Contacto sexual directo',
+                treatment: 'Antibióticos'
+            },
+            sifilis: {
+                name: 'Sífilis',
+                description: 'Infección bacteriana causada por Treponema pallidum',
+                symptoms: ['Úlcera indolora', 'Erupción cutánea', 'Ganglios inflamados'],
+                transmission: 'Contacto sexual directo, transfusión de sangre',
+                treatment: 'Penicilina'
+            },
+            herpes: {
+                name: 'Herpes Genital',
+                description: 'Infección viral causada por Virus del Herpes Simple (VHS)',
+                symptoms: ['Ampollas dolorosas', 'Picazón', 'Fiebre'],
+                transmission: 'Contacto sexual directo',
+                treatment: 'Antivirales (aciclovir, valaciclovir)'
+            },
+            vph: {
+                name: 'Virus del Papiloma Humano (VPH)',
+                description: 'Infección viral que puede causar verrugas y cáncer',
+                symptoms: ['Verrugas genitales', 'A menudo asintomático'],
+                transmission: 'Contacto sexual directo',
+                treatment: 'Vacuna preventiva, tratamiento de verrugas'
+            },
+            vih: {
+                name: 'VIH/SIDA',
+                description: 'Virus de Inmunodeficiencia Humana',
+                symptoms: ['Fiebre', 'Fatiga', 'Ganglios inflamados'],
+                transmission: 'Sangre, fluidos corporales, relaciones sexuales',
+                treatment: 'Terapia antirretroviral (TAR)'
+            }
+        };
+
+        // Medical Centers
+        const medicalCenters = [
+            {
+                id: 1,
+                name: 'Centro de Salud Sexual Metropolitano',
+                address: 'Calle Principal 123, Centro',
+                phone: '+34 91 234 5678',
+                email: 'info@centrosalud.es',
+                lat: 40.4168,
+                lng: -3.7038,
+                services: ['Pruebas ETS', 'Vacunación', 'Asesoramiento'],
+                hours: 'Lunes-Viernes: 8:00-18:00'
+            },
+            {
+                id: 2,
+                name: 'Clínica de Medicina Sexual',
+                address: 'Avenida Secundaria 456, Zona Norte',
+                phone: '+34 91 567 8901',
+                email: 'contacto@clinicasexual.es',
+                lat: 40.4530,
+                lng: -3.6883,
+                services: ['Consulta especializada', 'Tratamiento', 'Seguimiento'],
+                hours: 'Lunes-Sábado: 9:00-20:00'
+            },
+            {
+                id: 3,
+                name: 'Hospital Universitario de Salud Integral',
+                address: 'Plaza Mayor 789, Centro Histórico',
+                phone: '+34 91 789 0123',
+                email: 'urgencias@hospitaluni.es',
+                lat: 40.4155,
+                lng: -3.7033,
+                services: ['Urgencias', 'Consulta especializada', 'Laboratorio'],
+                hours: '24 horas'
+            }
+        ];
+
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: '¿Cuál es la forma más efectiva de prevenir ETS?',
+                options: ['Usar condón correctamente', 'Lavarse después del sexo', 'Tomar antibióticos preventivamente', 'Confiar en la pareja'],
+                correct: 0,
+                explanation: 'El uso correcto del condón es la forma más efectiva de prevenir la mayoría de ETS.'
+            },
+            {
+                question: '¿Cuál de estas ETS tiene cura?',
+                options: ['VIH', 'Herpes', 'Clamidia', 'Todas las anteriores'],
+                correct: 2,
+                explanation: 'La clamidia se puede curar con antibióticos. VIH y herpes son incurables pero controlables.'
+            },
+            {
+                question: '¿Con qué frecuencia se recomienda hacer pruebas de ETS?',
+                options: ['Una vez en la vida', 'Anualmente si eres sexualmente activo', 'Solo si tienes síntomas', 'Nunca es necesario'],
+                correct: 1,
+                explanation: 'Se recomienda hacer pruebas anuales si eres sexualmente activo o cambias de pareja.'
+            },
+            {
+                question: '¿Cuál es el período de incubación típico para la mayoría de ETS?',
+                options: ['1-2 días', '1-2 semanas', '1-2 meses', '6 meses a 1 año'],
+                correct: 1,
+                explanation: 'La mayoría de ETS tienen un período de incubación de 1-2 semanas, aunque varía.'
+            },
+            {
+                question: '¿Se pueden transmitir ETS sin síntomas?',
+                options: ['No, siempre hay síntomas', 'Sí, muchas ETS son asintomáticas', 'Solo en casos raros', 'Depende de la pareja'],
+                correct: 1,
+                explanation: 'Muchas ETS son asintomáticas, especialmente en las primeras etapas.'
+            }
+        ];
+
+        let currentQuizQuestion = 0;
+        let quizScore = 0;
+        let userLocation = null;
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+
+            if (pageId === 'centers') {
+                renderCenters();
+            } else if (pageId === 'quiz') {
+                initQuiz();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // ETS Modal
+        function showEtsModal(etsId) {
+            const ets = etsData[etsId];
+            document.getElementById('modal-title').textContent = ets.name;
+            document.getElementById('modal-description').textContent = ets.description;
+            document.getElementById('modal-transmission').textContent = ets.transmission;
+            document.getElementById('modal-treatment').textContent = ets.treatment;
+            
+            const symptomsList = document.getElementById('modal-symptoms');
+            symptomsList.innerHTML = '';
+            ets.symptoms.forEach(symptom => {
+                const li = document.createElement('li');
+                li.style.marginBottom = '8px';
+                li.innerHTML = `<span style="color: #2563eb; font-weight: bold;">•</span> ${symptom}`;
+                symptomsList.appendChild(li);
+            });
+
+            document.getElementById('ets-modal').classList.add('active');
+        }
+
+        function closeEtsModal() {
+            document.getElementById('ets-modal').classList.remove('active');
+        }
+
+        // Assessment
+        function evaluateSymptoms() {
+            const symptoms = document.querySelectorAll('.symptom-check input[type="checkbox"]:checked');
+            const count = symptoms.length;
+
+            if (count === 0) {
+                alert('Por favor selecciona al menos un síntoma');
+                return;
+            }
+
+            let riskLevel, riskClass, message;
+            if (count <= 2) {
+                riskLevel = 'BAJO';
+                riskClass = 'risk-low';
+                message = 'Buen signo: Pocos síntomas reportados. Mantén buenos hábitos de prevención.';
+            } else if (count <= 5) {
+                riskLevel = 'MODERADO';
+                riskClass = 'risk-moderate';
+                message = 'Atención: Considera consultar con un profesional de salud para evaluación.';
+            } else {
+                riskLevel = 'ALTO';
+                riskClass = 'risk-high';
+                message = 'Importante: Te recomendamos buscar atención médica profesional cuanto antes.';
+            }
+
+            const resultsDiv = document.getElementById('assessment-results');
+            const riskDisplay = document.getElementById('risk-display');
+            riskDisplay.innerHTML = `
+                <div class="${riskClass}">
+                    <p style="font-weight: bold; margin-bottom: 5px;">Nivel de Riesgo: ${riskLevel}</p>
+                    <p>${message}</p>
+                </div>
+            `;
+            document.getElementById('symptom-count').textContent = count;
+            resultsDiv.style.display = 'block';
+        }
+
+        function resetAssessment() {
+            document.querySelectorAll('.symptom-check input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('assessment-results').style.display = 'none';
+        }
+
+        function updateAssessment() {
+            // Placeholder for real-time updates
+        }
+
+        // Medical Centers
+        function renderCenters() {
+            const centersList = document.getElementById('centers-list');
+            centersList.innerHTML = medicalCenters.map(center => `
+                <div class="center-card" onclick="showCenterDetail(${center.id})">
+                    <h3>${center.name}</h3>
+                    <p style="color: #666; margin: 10px 0;">📍 ${center.address}</p>
+                    <p style="color: #666; margin: 10px 0;">📞 <a href="tel:${center.phone}" style="color: #2563eb;">${center.phone}</a></p>
+                    <p style="color: #666; margin: 10px 0;">🕐 ${center.hours}</p>
+                    <div style="margin-top: 10px;">
+                        ${center.services.map(s => `<span class="service-tag">${s}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showCenterDetail(centerId) {
+            const center = medicalCenters.find(c => c.id === centerId);
+            const detailDiv = document.getElementById('center-detail');
+            
+            let distanceHtml = '';
+            if (userLocation) {
+                const distance = calculateDistance(userLocation.lat, userLocation.lng, center.lat, center.lng);
+                distanceHtml = `<div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin: 15px 0;"><p style="color: #2563eb;"><strong>Distancia:</strong> ${distance} km</p></div>`;
+            }
+
+            detailDiv.innerHTML = `
+                <div class="card">
+                    <h3>${center.name}</h3>
+                    <div style="margin: 15px 0;">
+                        <p style="color: #666; margin-bottom: 5px;"><strong>Dirección</strong></p>
+                        <p>${center.address}</p>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <p style="color: #666; margin-bottom: 5px;"><strong>Teléfono</strong></p>
+                        <a href="tel:${center.phone}" style="color: #2563eb; text-decoration: none;">${center.phone}</a>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <p style="color: #666; margin-bottom: 5px;"><strong>Email</strong></p>
+                        <a href="mailto:${center.email}" style="color: #2563eb; text-decoration: none;">${center.email}</a>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <p style="color: #666; margin-bottom: 5px;"><strong>Horario</strong></p>
+                        <p>${center.hours}</p>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <p style="color: #666; margin-bottom: 10px;"><strong>Servicios</strong></p>
+                        ${center.services.map(s => `<div style="margin-bottom: 8px;"><span style="color: #2563eb;">✓</span> ${s}</div>`).join('')}
+                    </div>
+                    ${distanceHtml}
+                    <button class="btn-primary" onclick="openMaps('${center.name}', ${center.lat}, ${center.lng})" style="width: 100%; margin-top: 15px;">Ver en Google Maps</button>
+                </div>
+            `;
+            detailDiv.style.display = 'block';
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    document.getElementById('location-info').textContent = `Ubicación detectada: ${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}`;
+                    document.getElementById('location-info').style.display = 'block';
+                    renderCenters();
+                }, error => {
+                    alert('No se pudo obtener tu ubicación. Por favor, habilita la geolocalización.');
+                });
+            } else {
+                alert('Tu navegador no soporta geolocalización.');
+            }
+        }
+
+        function calculateDistance(lat1, lng1, lat2, lng2) {
+            const R = 6371;
+            const dLat = ((lat2 - lat1) * Math.PI) / 180;
+            const dLng = ((lng2 - lng1) * Math.PI) / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) *
+                      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return (R * c).toFixed(1);
+        }
+
+        function openMaps(name, lat, lng) {
+            const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(name)}/${lat},${lng}`;
+            window.open(mapsUrl, '_blank');
+        }
+
+        // Quiz
+        function initQuiz() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-container');
+            const question = quizQuestions[currentQuizQuestion];
+            const progress = ((currentQuizQuestion + 1) / quizQuestions.length) * 100;
+
+            container.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: #666;">Pregunta ${currentQuizQuestion + 1} de ${quizQuestions.length}</span>
+                        <span style="color: #2563eb; font-weight: bold;">Puntos: ${quizScore}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>${question.question}</h3>
+                    <div id="quiz-options" style="margin-top: 20px;"></div>
+                </div>
+            `;
+
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = question.options.map((option, index) => `
+                <div class="quiz-option" onclick="selectAnswer(${index})">
+                    <input type="radio" name="answer" value="${index}" id="option-${index}">
+                    <label for="option-${index}" style="cursor: pointer; flex: 1;">${option}</label>
+                </div>
+            `).join('');
+        }
+
+        function selectAnswer(index) {
+            const question = quizQuestions[currentQuizQuestion];
+            if (index === question.correct) {
+                quizScore++;
+            }
+
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((opt, i) => {
+                opt.style.pointerEvents = 'none';
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && index !== question.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            const container = document.getElementById('quiz-container');
+            const explanation = `
+                <div style="background: ${index === question.correct ? '#f0fdf4' : '#f0f9ff'}; border-left: 4px solid ${index === question.correct ? '#10b981' : '#2563eb'}; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <p style="color: ${index === question.correct ? '#10b981' : '#2563eb'}; font-weight: bold; margin-bottom: 8px;">
+                        ${index === question.correct ? '¡Correcto!' : 'Respuesta:'}
+                    </p>
+                    <p style="color: ${index === question.correct ? '#059669' : '#1e40af'};">${question.explanation}</p>
+                </div>
+            `;
+            container.innerHTML += explanation;
+
+            const nextButton = `
+                <button class="btn-primary" onclick="nextQuizQuestion()" style="width: 100%; margin-top: 20px;">
+                    ${currentQuizQuestion === quizQuestions.length - 1 ? 'Ver Resultados' : 'Siguiente Pregunta'}
+                </button>
+            `;
+            container.innerHTML += nextButton;
+        }
+
+        function nextQuizQuestion() {
+            if (currentQuizQuestion < quizQuestions.length - 1) {
+                currentQuizQuestion++;
+                renderQuizQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+            const container = document.getElementById('quiz-container');
+
+            let resultMessage = '';
+            if (percentage >= 80) {
+                resultMessage = '¡Excelente! Demuestras gran conocimiento sobre ETS';
+            } else if (percentage >= 60) {
+                resultMessage = '¡Bien! Tienes buen conocimiento, pero hay áreas para mejorar';
+            } else {
+                resultMessage = 'Considera revisar el material educativo para mejorar tus conocimientos';
+            }
+
+            container.innerHTML = `
+                <div class="card" style="text-align: center;">
+                    <h2 style="margin-top: 0;">¡Quiz Completado!</h2>
+                    <div style="font-size: 3rem; font-weight: bold; color: #2563eb; margin: 20px 0;">${percentage}%</div>
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">
+                        Obtuviste ${quizScore} de ${quizQuestions.length} respuestas correctas
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0;">
+                        <div class="card">
+                            <div style="font-size: 2rem; font-weight: bold; color: #10b981; margin-bottom: 10px;">${quizScore}</div>
+                            <p style="color: #666; font-size: 0.9rem;">Respuestas Correctas</p>
+                        </div>
+                        <div class="card">
+                            <div style="font-size: 2rem; font-weight: bold; color: #ef4444; margin-bottom: 10px;">${quizQuestions.length - quizScore}</div>
+                            <p style="color: #666; font-size: 0.9rem;">Respuestas Incorrectas</p>
+                        </div>
+                        <div class="card">
+                            <div style="font-size: 2rem; font-weight: bold; color: #2563eb; margin-bottom: 10px;">${quizQuestions.length}</div>
+                            <p style="color: #666; font-size: 0.9rem;">Total de Preguntas</p>
+                        </div>
+                    </div>
+
+                    <div style="background: ${percentage >= 80 ? '#f0fdf4' : percentage >= 60 ? '#fffbeb' : '#fef2f2'}; border-left: 4px solid ${percentage >= 80 ? '#10b981' : percentage >= 60 ? '#f59e0b' : '#ef4444'}; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p style="color: ${percentage >= 80 ? '#059669' : percentage >= 60 ? '#92400e' : '#991b1b'}; font-weight: bold;">
+                            ${resultMessage}
+                        </p>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button class="btn-primary" onclick="initQuiz()" style="flex: 1;">Repetir Quiz</button>
+                        <button class="btn-secondary" onclick="showPage('education')" style="flex: 1;">Ir a Educación</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCenters();
+        });
+    </script>
+</body>
+</html>
+
